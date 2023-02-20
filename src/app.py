@@ -7,7 +7,8 @@ socketio = SocketIO()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = environ['SECRET_KEY']
+    app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
     socketio.init_app(app)
 
+    import src.events
     return app
