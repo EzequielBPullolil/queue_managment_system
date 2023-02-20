@@ -1,2 +1,2 @@
 export PYTHONPATH='.' 
-pytest -vvv -s
+pytest -s 
