@@ -2,7 +2,7 @@ from flask import Flask
 from flask_socketio import SocketIO
 from os import environ
 
-socketio = SocketIO()
+socketio = SocketIO(logger=True, engineio_logger=True)
 
 
 def create_app():
@@ -11,4 +11,5 @@ def create_app():
     socketio.init_app(app)
 
     import src.events
+
     return app
