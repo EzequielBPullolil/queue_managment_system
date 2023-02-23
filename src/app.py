@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_socketio import SocketIO, emit
 from os import environ
-
+from src.events import join_queue
 socketio = SocketIO(logger=True, engineio_logger=True)
 
 
@@ -14,12 +14,6 @@ def create_app():
     def ping():
         emit('pong')
 
-    @socketio.on('join_queue')
-    def join_queue():
-        print('joinend in queue')
-        emit('queue_status', {
-            'queue_length': 100,
-            'actual_ticket': 99
-        })
+    socketio.on_event('join_queue', join_queue)
 
     return app
