@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_socketio import SocketIO, emit
 from os import environ
-from src.events import join_queue
+from src.events import join_queue, leave_queue
 socketio = SocketIO(logger=True, engineio_logger=True)
 
 
@@ -15,5 +15,5 @@ def create_app():
         emit('pong')
 
     socketio.on_event('join_queue', join_queue)
-
+    socketio.on_event('leave_queue', leave_queue)
     return app
