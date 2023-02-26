@@ -1,6 +1,5 @@
-from .models.queue import Queue
+from .models import Queue, User, Queue_User
 from src.db import Base, engine
-import os
 
 
 Base.metadata.create_all(engine)
