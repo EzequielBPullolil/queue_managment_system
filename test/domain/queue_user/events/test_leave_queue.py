@@ -1,5 +1,5 @@
 class TestLeaveQueue:
-    def test_leave_queue_decrement_queue_length(self, sio, queue_user):
+    def test_leave_queue_emit_decrement_queue_length(self, sio, queue_user):
         '''
             Verify if leave queue decrement queue_length 
         '''
@@ -12,3 +12,6 @@ class TestLeaveQueue:
         received = sio.get_received()
 
         assert len(received) > 0
+
+        assert received[0]['name'] == 'decrement_queue'
+        assert received[0]['args'][0] == queue_user['queue_id']
