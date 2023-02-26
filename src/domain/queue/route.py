@@ -1,7 +1,9 @@
-from flask import Blueprint, jsonify, request, make_response
-from src.db import Session
-from src.db.models import Queue
+from flask import Blueprint, request, make_response
 from uuid_extensions import uuid7
+# infrastructure
+from src.db import Session
+# domain imports
+from .model import Queue
 queue_bp = Blueprint('queues', __name__, url_prefix='/queues')
 
 
