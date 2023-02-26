@@ -9,7 +9,9 @@ class User(Base):
     name = Column(String(50), nullable=False)
     email = Column(String(100), nullable=False)
 
-    def __init__(self, id, name, email):
-        self.id = id
+    def __init__(self, name, email):
         self.name = name
         self.email = email
+
+    def getId(self) -> int:
+        return self.id
