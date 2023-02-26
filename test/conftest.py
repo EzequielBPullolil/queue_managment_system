@@ -54,3 +54,25 @@ def user_suject_id():
     session.close()
 
     return id
+
+
+@pytest.fixture()
+def queue_user(app, queue_suject_id, user_suject_id):
+    '''
+        Returns an object with the id of a queue
+        and the user_id that are already in the queue
+    '''
+    flask_client = app.test_client()
+    sio = socketio.test_client(
+        app=app,
+        flask_test_client=flask_client
+    )
+    data = {
+        'queue_id': queue_suject_id,
+        'user_id': user_suject_id
+    }
+    sio.connect()
+    sio.emit('join_queue', data)
+
+    sio.disconnect()
+    return data
