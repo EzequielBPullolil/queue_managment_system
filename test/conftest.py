@@ -1,7 +1,8 @@
 import pytest
 from src.app import create_app, socketio
 from src.db import Session
-from src.db.models import Queue, User
+from src.domain.user.model import User
+from src.domain.queue.model import Queue
 from uuid_extensions import uuid7
 
 import src.db.sync_db
