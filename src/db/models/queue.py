@@ -11,3 +11,6 @@ class Queue(Base):
     def __init__(self, id, name):
         self.id = id
         self.name = name
+
+    def __repr__(self):
+        return f"Queue(id={self.id!r}, name={self.name!r})"
