@@ -17,5 +17,5 @@ class TestJoinQueue:
         print(received)
 
         assert len(received) > 0
-        assert received[0]['name'] == 'increase_queue_length'
+        assert received[0]['name'] == 'increment_queue_length'
         assert received[0]['args'][0] == queue_suject_id
