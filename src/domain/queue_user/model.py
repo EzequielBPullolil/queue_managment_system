@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, Integer
 from src.db import Base
 
 
@@ -14,6 +14,11 @@ class Queue_User(Base):
         'user_id',
         ForeignKey('Users.id'),
         primary_key=True
+    )
+
+    user_ticket = Column(
+        Integer,
+        nullable=True
     )
 
     def __init__(self, queue_id, user_id):
