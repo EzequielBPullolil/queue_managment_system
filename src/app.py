@@ -19,6 +19,7 @@ def create_app():
     socketio.on_event('increment_queue_length', increment_queue_length)
     app.register_blueprint(queue_bp)
 
-    from src.domain.queue_user.events import join_queue
+    from src.domain.queue_user.events import join_queue, leave_queue
     socketio.on_event('join_queue', join_queue)
+    socketio.on_event('leave_queue', leave_queue)
     return app

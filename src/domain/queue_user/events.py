@@ -1,4 +1,4 @@
-
+from sqlalchemy import select
 from flask_socketio import emit
 # infrastructure imports
 from src.db import Session
@@ -23,3 +23,26 @@ def join_queue(data):
     emit('increment_queue_length', queue_id)
 
     session.close()
+
+
+def leave_queue(data):
+    '''
+        Delete queue_user row they have the same queue_id 
+        and user_id 
+
+    '''
+    user_id = data['user_id']
+    queue_id = data['queue_id']
+    session = Session()
+
+    queue_user = session.execute(
+        select(Queue_User).where(Queue_User.user_id ==
+                                 user_id, Queue_User.queue_id == queue_id)
+    ).fetchone()[0]
+
+    # print(queue_user)
+    session.delete(queue_user)
+    # print('deleted queue_user')
+    session.commit()
+
+    emit('decrement_queue', queue_id)
