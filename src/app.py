@@ -15,8 +15,6 @@ def create_app():
         emit('pong')
 
     from src.domain.queue.route import queue_bp
-    from src.domain.queue.events import increment_queue_length
-    socketio.on_event('increment_queue_length', increment_queue_length)
     app.register_blueprint(queue_bp)
 
     from src.domain.queue_user.events import join_queue, leave_queue
