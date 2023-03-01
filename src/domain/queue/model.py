@@ -9,12 +9,6 @@ class Queue(Base):
     name = Column(String(50), nullable=False)
     queue_length = Column(Integer, default=0)
 
-    def getLength(self) -> int:
-        return self.queue_length
-
-    def incrementLength(self):
-        self.queue_length += 1
-
     def __init__(self, id, name):
         self.id = id
         self.name = name
