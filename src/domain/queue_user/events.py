@@ -4,6 +4,8 @@ from flask_socketio import emit
 from src.db import Session
 # domain imports
 from .model import Queue_User
+from src.app import socketio
+from .exceptions import NonQueuedUser
 
 
 def join_queue(data):
@@ -19,10 +21,9 @@ def join_queue(data):
 
     session.add(queue_user)
     session.commit()
+    session.close()
 
     emit('increment_queue_length', queue_id)
-
-    session.close()
 
 
 def leave_queue(data):
@@ -33,16 +34,17 @@ def leave_queue(data):
     '''
     user_id = data['user_id']
     queue_id = data['queue_id']
-    session = Session()
+    try:
+        session = Session()
+        queue_user = session.execute(
+            select(Queue_User).where(Queue_User.user_id ==
+                                     user_id, Queue_User.queue_id == queue_id)
+        ).fetchone()[0]
 
-    queue_user = session.execute(
-        select(Queue_User).where(Queue_User.user_id ==
-                                 user_id, Queue_User.queue_id == queue_id)
-    ).fetchone()[0]
+        session.delete(queue_user)
+        session.commit()
+        session.close()
+    except TypeError:
+        raise NonQueuedUser(queue_id=queue_id, user_id=user_id)
 
-    # print(queue_user)
-    session.delete(queue_user)
-    # print('deleted queue_user')
-    session.commit()
-
-    emit('decrement_queue', queue_id)
+    socketio.emit('decrement_queue_length', queue_id)
