@@ -39,21 +39,18 @@ def queue_suject_id():
     queue = Queue(id=id, name='test_suject_queue')
     session.add(queue)
     session.commit()
-    id = queue.id
-    session.close()
-    return id
+    return queue.id
 
 
 @pytest.fixture()
 def user_suject_id():
     session = Session()
-    user = User(name='user_suject', email='test@test.com')
+    id = uuid7()
+    user = User(id=id, name='user_suject', email='test@test.com')
     session.add(user)
     session.commit()
-    id = user.getId()
-    session.close()
 
-    return id
+    return user.id
 
 
 @pytest.fixture()

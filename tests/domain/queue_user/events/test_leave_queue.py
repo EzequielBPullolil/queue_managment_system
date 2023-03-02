@@ -34,5 +34,3 @@ class TestLeaveQueue:
                 "queue_id": queue_suject_id
             })
             assert exception.type == NonQueuedUser
-
-        received = sio.get_received()
