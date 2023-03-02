@@ -20,10 +20,15 @@ class Queue_User(Base):
         Integer
     )
 
+    def __repr__(self):
+        return f"QueueUser(queued_id={self.queue_id}, user_id={self.user_id}, user_ticket={self.user_ticket})"
+
     def __init__(self, queue_id, user_id, user_ticket):
         self.queue_id = queue_id
         self.user_id = user_id
         self.user_ticket = user_ticket
 
-    def __str__(self) -> str:
-        return f"queued_id={self.queue_id}, user_id={self.user_id}, user_ticket={self.user_ticket}"
+    def as_dict(self):
+        return {
+            c.name: getattr(self, c.name) for c in self.__table__.columns
+        }
