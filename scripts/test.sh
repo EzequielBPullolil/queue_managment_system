@@ -6,4 +6,4 @@ export DB_NAME='queueSYS_test'
 
 clear 
 
-pytest -s $1 $2
+pytest -s -vvvv $1 $2
